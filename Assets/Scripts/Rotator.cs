@@ -9,6 +9,7 @@ public class Rotator : MonoBehaviour
     // Update is called once per frame
     void Update () {
         // rotate the cube in the direction the rigidbody is moving
-        transform.Rotate(rb.velocity);
+        // had to invert it so it would look more natural spinning "toward" pointer instead of away
+        transform.Rotate(rb.velocity * -1);
     }
 }
