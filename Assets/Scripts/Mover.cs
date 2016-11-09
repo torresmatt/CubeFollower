@@ -9,6 +9,11 @@ public class Mover : MonoBehaviour {
     public Rigidbody rb;
     public float dist;
 		
+    void Start()
+    {
+        camera = Camera.main;
+    }
+
 	// Update is called once per frame
 	void Update () 
 	{
