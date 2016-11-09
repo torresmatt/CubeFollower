@@ -18,6 +18,7 @@ public class CubeSpawner : MonoBehaviour {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.Set(mousePos.x, mousePos.y, 0);
             Instantiate(prefabToSpawn, mousePos, Quaternion.identity);
+            CubeCounter.cubeCount++;
         }
 
 
