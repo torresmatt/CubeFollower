@@ -1,50 +1,39 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class Mover : MonoBehaviour {
+public class Mover : MonoBehaviour
+{
 
-    public Camera camera;
-    public float maxForce;
-    public float maxVelocity;
-    public Rigidbody rb;
-    public float dist;
-		
-    void Start()
+	[SerializeField] private Camera _camera;
+    [SerializeField] private float _maxForce;
+    [SerializeField] private Rigidbody _rigidbody;
+    [SerializeField] private int _distanceThreshold;
+
+    private void Start()
     {
-        camera = Camera.main;
+        _camera = Camera.main;
     }
 
-	// Update is called once per frame
-	void Update () 
+	private void Update () 
 	{
-		// store mouse position in terms of screen cooordinates
-        	Vector3 mousePos = Input.mousePosition;
+        	var mousePos = Input.mousePosition;
 		
-		// store this transform (the cube's) in terms of screen coordinates
-       		Vector3 cubePos = camera.WorldToScreenPoint(transform.position);
+       		var position = _camera.WorldToScreenPoint(transform.position);
+			
+        	var forceDirection = mousePos - position;
 		
-		// store a vector representing the vector between the mouse and the transform of this object (cube)		
-        	Vector3 force = mousePos - cubePos;
+        	var mouseDistance = Vector3.Distance(mousePos, position);
 		
-		// store the distance between the mouse and the cube
-        	dist = Vector3.Distance(mousePos, cubePos);
+        	forceDirection = Vector3.ClampMagnitude(forceDirection, _maxForce);
 		
-		// reduce the magnitude of the force vector to whatever the maxForce variable is set to in the editor
-        	force = Vector3.ClampMagnitude(force, maxForce);
-		
-		// add the force to the cube
-        	rb.AddForce(force);
+        	_rigidbody.AddForce(forceDirection);
 
-		// is the cube closer than 20 pixels to the mouse?
-        	if (dist < 20)
+            _distanceThreshold = 20;
+            if (mouseDistance < _distanceThreshold)
         	{
-			// clamp the velocity to a value determined by the distance between the mouse and the cube
-			// divide by 100 to make sure the velocity is very small (we dont want to go shooting past the pointer)
-            		rb.velocity = Vector3.ClampMagnitude(rb.velocity, dist / 100);
+            		_rigidbody.velocity = Vector3.ClampMagnitude(_rigidbody.velocity, mouseDistance / 100);
             		return;
         	}
 		
-		// clamp velocity by distance divided by 10 to reduce it slightly but not too much
-        	rb.velocity = Vector3.ClampMagnitude(rb.velocity, dist / 10);
+        	_rigidbody.velocity = Vector3.ClampMagnitude(_rigidbody.velocity, mouseDistance / 10);
 	}
 }
