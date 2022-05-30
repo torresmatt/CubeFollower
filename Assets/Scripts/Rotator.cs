@@ -1,15 +1,16 @@
 using UnityEngine;
-using System.Collections;
 
-public class Rotator : MonoBehaviour 
+public class Rotator : MonoBehaviour
 {
+    private Rigidbody _rigidbody;
 
-    public Rigidbody rb;
-    
-    // Update is called once per frame
-    void Update () {
-        // rotate the cube in the direction the rigidbody is moving
-        // had to invert it so it would look more natural spinning "toward" pointer instead of away
-        transform.Rotate(rb.velocity * -1);
+    private void Start()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        transform.Rotate(_rigidbody.velocity * -1);
     }
 }

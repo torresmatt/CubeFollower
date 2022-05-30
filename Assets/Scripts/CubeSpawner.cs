@@ -1,26 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class CubeSpawner : MonoBehaviour {
+public class CubeSpawner : MonoBehaviour
+{
+    [SerializeField] private GameObject prefabToSpawn;
 
-    public GameObject prefabToSpawn;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () 
+    // Update is called once per frame
+    private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.Set(mousePos.x, mousePos.y, 0);
-            Instantiate(prefabToSpawn, mousePos, Quaternion.identity);
-            CubeCounter.cubeCount++;
-        }
+        if (!Input.GetMouseButtonDown(0)) return;
 
-
-	}
+        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos.Set(mousePos.x, mousePos.y, 0);
+        Instantiate(prefabToSpawn, mousePos, Quaternion.identity);
+        CubeCounter.CubeCount++;
+    }
 }

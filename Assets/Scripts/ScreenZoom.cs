@@ -1,25 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ScreenZoom : MonoBehaviour {
+public class ScreenZoom : MonoBehaviour
+{
+    [SerializeField] private float _screenSizeChangeAmount = 10;
 
-    private Camera camera;
-    private float scroll;
+    private Camera _camera;
+    
+    private void Start()
+    {
+        _camera = Camera.main;
+    }
 
-    public float scrollSpeed = 10;
-
-	// Use this for initialization
-	void Start () {
-        camera = Camera.main;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        scroll = Input.GetAxis("Mouse ScrollWheel");
-        if (scroll != 0)
-        {
-            camera.orthographicSize -= scroll * scrollSpeed;
-            camera.orthographicSize = Mathf.Clamp(camera.orthographicSize, 1, 50);
-        }
-	}
+    private void Update()
+    {
+        var scrollWheelAxis = Input.GetAxis("Mouse ScrollWheel");
+        
+        if (scrollWheelAxis == 0) return;
+        
+        var cameraSize = _camera.orthographicSize;
+        cameraSize -= scrollWheelAxis * _screenSizeChangeAmount;
+        cameraSize = Mathf.Clamp(cameraSize, 1, 50);
+        
+        _camera.orthographicSize = cameraSize;
+    }
 }

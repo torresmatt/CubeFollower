@@ -2,15 +2,16 @@
 
 public class Mover : MonoBehaviour
 {
-
-	[SerializeField] private Camera _camera;
-    [SerializeField] private float _maxForce;
-    [SerializeField] private Rigidbody _rigidbody;
-    [SerializeField] private int _distanceThreshold;
-
+	[SerializeField] private float _maxForce;
+	[SerializeField] private int _distanceThreshold;
+    
+    private Camera _camera;
+    private Rigidbody _rigidbody;
+    
     private void Start()
     {
         _camera = Camera.main;
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
 	private void Update () 
