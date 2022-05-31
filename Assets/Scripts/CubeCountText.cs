@@ -12,6 +12,6 @@ public class CubeCountText : MonoBehaviour
 
     private void Update()
     {
-        _text.text = "Cube Count: " + CubeCounter.CubeCount;
+        _text.text = $"Cube Count: {CubeCounter.CubeCount}";
     }
 }

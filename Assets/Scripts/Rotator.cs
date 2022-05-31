@@ -3,14 +3,16 @@ using UnityEngine;
 public class Rotator : MonoBehaviour
 {
     private Rigidbody _rigidbody;
+    private Transform _transform;
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _transform = transform;
     }
 
     private void Update()
     {
-        transform.Rotate(_rigidbody.velocity * -1);
+        _transform.Rotate(_rigidbody.velocity * -1);
     }
 }
