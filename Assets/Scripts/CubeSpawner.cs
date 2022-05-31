@@ -2,7 +2,7 @@
 
 public class CubeSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject prefabToSpawn;
+    [SerializeField] private GameObject _prefabToSpawn;
     private Camera _camera;
 
     private void Start()
@@ -12,11 +12,11 @@ public class CubeSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (!Input.GetMouseButtonDown(0)) return;
+        if (!Input.GetMouseButton(0)) return;
 
         var mousePos = _camera.ScreenToWorldPoint(Input.mousePosition);
         mousePos.Set(mousePos.x, mousePos.y, 0);
-        Instantiate(prefabToSpawn, mousePos, Quaternion.identity);
+        Instantiate(_prefabToSpawn, mousePos, Quaternion.identity);
         CubeCounter.CubeCount++;
     }
 }
