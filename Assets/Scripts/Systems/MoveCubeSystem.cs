@@ -35,6 +35,7 @@ namespace Systems
 
                 physicsVelocity.Linear += direction * moveComponent.Speed * deltaTime;
             }).Schedule();
+
         }
     }
 }
