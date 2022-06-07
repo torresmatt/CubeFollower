@@ -22,7 +22,7 @@ namespace Systems
 
             Entities.ForEach((SpawnerComponent spawnerComponent) =>
             {
-                EntityManager.Instantiate(spawnerComponent.EntityToSpawn);
+                var entity = EntityManager.Instantiate(spawnerComponent.EntityToSpawn);
 
             }).WithStructuralChanges().WithoutBurst().Run();
             
